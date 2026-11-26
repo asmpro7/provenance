@@ -1,0 +1,198 @@
+<!-- Zotero loads plugin preference panes as an XHTML fragment (XUL default
+     namespace, HTML under html:), not as a full document: no XML
+     declaration, no DOCTYPE, no html/head/body. All colors come from
+     Zotero's own theme variables so the pane follows light and dark mode. -->
+<vbox xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<html:style>
+		#provenance-pref-root {
+			display: block; box-sizing: border-box; max-width: 100%;
+			padding: 4px 0 20px; color: var(--fill-primary);
+			font-size: 13px;
+		}
+		#provenance-pref-root *, #provenance-pref-root *::before, #provenance-pref-root *::after { box-sizing: border-box; }
+		#provenance-pref-root h1 { font-size: 18px; margin: 0 0 4px; color: var(--fill-primary); }
+		#provenance-pref-root p.sub { color: var(--fill-secondary); font-size: 12px; margin: 0 0 20px; }
+		#provenance-pref-root fieldset {
+			border: 1px solid var(--color-border); border-radius: 8px;
+			margin: 0 0 18px; padding: 12px 16px 14px; max-width: 640px;
+			background: var(--color-quinary-on-background);
+		}
+		#provenance-pref-root legend { font-size: 12px; font-weight: 700; color: var(--accent-blue); padding: 0 6px; }
+		#provenance-pref-root .row {
+			display: flex; align-items: center; gap: 10px;
+			margin-bottom: 12px; max-width: 100%;
+		}
+		#provenance-pref-root .row:last-child { margin-bottom: 0; }
+		#provenance-pref-root .row label { flex: 1; min-width: 0; overflow-wrap: break-word; color: var(--fill-primary); }
+		#provenance-pref-root .row.check { align-items: flex-start; }
+		#provenance-pref-root .row.check label { flex: 1; }
+		#provenance-pref-root input[type=number] {
+			width: 90px; flex: none; padding: 4px 6px;
+			background: var(--color-background); color: var(--fill-primary);
+			border: 1px solid var(--color-border); border-radius: 4px;
+			font: inherit;
+		}
+		#provenance-pref-root input[type=checkbox] { flex: none; margin-top: 2px; accent-color: var(--accent-blue); width: 14px; height: 14px; }
+		#provenance-pref-root .hint { font-size: 11px; color: var(--fill-secondary); margin: -4px 0 12px; overflow-wrap: break-word; }
+		#provenance-pref-root .hint:last-child { margin-bottom: 0; }
+		#provenance-pref-root button {
+			padding: 6px 14px; border: 1px solid var(--color-border); border-radius: 6px;
+			background: var(--color-button); color: var(--fill-primary);
+			font: inherit; font-size: 12px; cursor: pointer;
+		}
+		#provenance-pref-root button:hover { border-color: var(--accent-blue); }
+		#provenance-pref-root button.primary { background: var(--accent-blue); border-color: var(--accent-blue); color: #fff; }
+		#provenance-pref-root .btn-row { flex-wrap: wrap; }
+		#clear-index-done, #preset-done { font-size: 11px; color: var(--accent-green, #39bf68); margin-left: 8px; visibility: hidden; align-self: center; }
+	</html:style>
+	<html:div id="provenance-pref-root">
+	<html:h1>Provenance</html:h1>
+	<html:p class="sub">Plagiarism check and reference sweep for Zotero.</html:p>
+
+	<html:fieldset>
+		<html:legend>Presets</html:legend>
+		<html:div class="row btn-row">
+			<html:button id="preset-strict">Strict</html:button>
+			<html:button id="preset-normal">Normal</html:button>
+			<html:button id="preset-lenient">Lenient</html:button>
+			<html:button id="preset-reset">Reset all to defaults</html:button>
+			<html:span id="preset-done"></html:span>
+		</html:div>
+		<html:p class="hint">Strict flags more (lower thresholds), lenient flags less. Normal is the
+		default balance. Reset restores every setting on this page.</html:p>
+	</html:fieldset>
+
+	<html:fieldset>
+		<html:legend>Detection</html:legend>
+		<html:div class="row">
+			<html:label for="ngram">Phrase size (words per matched phrase)</html:label>
+			<html:input type="number" id="ngram" min="4" max="20"/>
+		</html:div>
+		<html:div class="row">
+			<html:label for="minRunWords">Shortest matching run that counts (words)</html:label>
+			<html:input type="number" id="minRunWords" min="4" max="60"/>
+		</html:div>
+		<html:div class="row check">
+			<html:input type="checkbox" id="excludeQuoted"/>
+			<html:label for="excludeQuoted">Exclude text inside quotation marks</html:label>
+		</html:div>
+		<html:div class="row check">
+			<html:input type="checkbox" id="excludeBibliography"/>
+			<html:label for="excludeBibliography">Exclude the paper's own bibliography section</html:label>
+		</html:div>
+		<html:div class="row check">
+			<html:input type="checkbox" id="citedSourcesOnly"/>
+			<html:label for="citedSourcesOnly">Cited sources only - compare just against papers in the draft's reference list</html:label>
+		</html:div>
+		<html:div class="row check">
+			<html:input type="checkbox" id="excludeDuplicates"/>
+			<html:label for="excludeDuplicates">Exclude duplicate copies (same DOI or title) from the score</html:label>
+		</html:div>
+		<html:p class="hint">A second copy of the checked paper in your library is a duplicate, not
+		plagiarism. Duplicates are listed in the report instead of inflating the score.</html:p>
+	</html:fieldset>
+
+	<html:fieldset>
+		<html:legend>Reworded-text detection (fully local)</html:legend>
+		<html:div class="row check">
+			<html:input type="checkbox" id="nearMatchEnabled"/>
+			<html:label for="nearMatchEnabled">Detect lightly reworded copying (near-match, experimental)</html:label>
+		</html:div>
+		<html:p class="hint">Compares stemmed content words with stopwords and numbers removed, so text
+		whose articles or verb forms were changed still matches. Never counts toward the overall
+		score; listed per source instead. Runs locally, no internet needed.</html:p>
+		<html:div class="row">
+			<html:label for="nearWatchPct">List a source from this near-match %</html:label>
+			<html:input type="number" id="nearWatchPct" min="1" max="100"/>
+		</html:div>
+		<html:div class="row">
+			<html:label for="nearFlagPct">Flag a source from this near-match %</html:label>
+			<html:input type="number" id="nearFlagPct" min="1" max="100"/>
+		</html:div>
+		<html:div class="row check">
+			<html:input type="checkbox" id="paraphraseEnabled"/>
+			<html:label for="paraphraseEnabled">Detect paraphrased sentences (experimental)</html:label>
+		</html:div>
+		<html:p class="hint">For paper sentences with little verbatim overlap, checks how many of their
+		content words also appear in the matched sources' sentences. Fully local.</html:p>
+		<html:div class="row">
+			<html:label for="paraContainPct">Content-word overlap threshold (%)</html:label>
+			<html:input type="number" id="paraContainPct" min="40" max="100"/>
+		</html:div>
+		<html:div class="row">
+			<html:label for="maxParaphraseUnits">Max paper sentences compared</html:label>
+			<html:input type="number" id="maxParaphraseUnits" min="5" max="200"/>
+		</html:div>
+		<html:div class="row">
+			<html:label for="maxBatch">Max papers in a collection cross-check</html:label>
+			<html:input type="number" id="maxBatch" min="2" max="200"/>
+		</html:div>
+	</html:fieldset>
+
+	<html:fieldset>
+		<html:legend>Flag thresholds</html:legend>
+		<html:div class="row">
+			<html:label for="flagThresholdPct">Flag when a source covers this % of the paper</html:label>
+			<html:input type="number" id="flagThresholdPct" min="1" max="100"/>
+		</html:div>
+		<html:div class="row">
+			<html:label for="watchThresholdPct">Mark for review from this % of the paper</html:label>
+			<html:input type="number" id="watchThresholdPct" min="0" max="100"/>
+		</html:div>
+		<html:div class="row">
+			<html:label for="sourceFlagPct">Also flag when this % of a source is reused</html:label>
+			<html:input type="number" id="sourceFlagPct" min="1" max="100"/>
+		</html:div>
+		<html:div class="row">
+			<html:label for="sourceWatchPct">Source-reuse review threshold (%)</html:label>
+			<html:input type="number" id="sourceWatchPct" min="0" max="100"/>
+		</html:div>
+		<html:div class="row">
+			<html:label for="maxPassages">Matched passages shown per source</html:label>
+			<html:input type="number" id="maxPassages" min="0" max="20"/>
+		</html:div>
+	</html:fieldset>
+
+	<html:fieldset>
+		<html:legend>Speed</html:legend>
+		<html:div class="row check">
+			<html:input type="checkbox" id="useIndex"/>
+			<html:label for="useIndex">Save a fingerprint index so repeat checks skip unchanged sources</html:label>
+		</html:div>
+		<html:p class="hint">Stored as provenance-index.json in your Zotero data folder. A source is
+		re-indexed when its PDF or abstract changes. The first check builds the index; later
+		checks against the same library are much faster.</html:p>
+		<html:div class="row">
+			<html:button id="clear-index">Clear saved index</html:button>
+			<html:span id="clear-index-done">Cleared.</html:span>
+		</html:div>
+	</html:fieldset>
+
+	<html:fieldset>
+		<html:legend>Reference sweep (online)</html:legend>
+		<html:p class="hint">This is the only feature that uses the internet: reference lists come from
+		Semantic Scholar. Checking itself is always fully local and offline.</html:p>
+		<html:div class="row">
+			<html:label for="maxRefs">Max references fetched per paper</html:label>
+			<html:input type="number" id="maxRefs" min="10" max="1000"/>
+		</html:div>
+		<html:div class="row">
+			<html:label for="maxCompare">Max items compared in one check</html:label>
+			<html:input type="number" id="maxCompare" min="10" max="5000"/>
+		</html:div>
+		<html:div class="row check">
+			<html:input type="checkbox" id="fetchOaPdf"/>
+			<html:label for="fetchOaPdf">Download open-access reference PDFs during the sweep</html:label>
+		</html:div>
+	</html:fieldset>
+
+	<html:fieldset>
+		<html:legend>Report</html:legend>
+		<html:div class="row check">
+			<html:input type="checkbox" id="autoOpenReport"/>
+			<html:label for="autoOpenReport">Open the HTML report in the browser when it is ready</html:label>
+		</html:div>
+	</html:fieldset>
+	</html:div>
+</vbox>

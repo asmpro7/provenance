@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+  "name": "Provenance",
+  "version": "1.0.0",
+  "description": "Provenance is a local plagiarism and citation checker for Zotero. Pick a paper or draft file and it compares the text with the PDFs in your library. It finds copied and lightly reworded passages and says whether each one has a citation. It can also fetch a paper's reference list into a collection so you can check against what it cites. Checking runs fully on your computer. Reports are a single file you can filter, save as PDF or export as CSV.",
+  "homepage_url": "https://github.com/asmpro7/provenance",
+  "applications": {
+    "zotero": {
+      "id": "provenance@example.com",
+      "update_url": "https://raw.githubusercontent.com/asmpro7/provenance/main/updates.json",
+      "strict_min_version": "7.0",
+      "strict_max_version": "10.0.*"
+    }
+  },
+  "author": "Ahmed Abdelmageed",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "96": "icons/icon-96.png"
+  }
+}
