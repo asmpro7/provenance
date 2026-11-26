@@ -13,6 +13,7 @@
   <a href="https://github.com/asmpro7/provenance/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/asmpro7/provenance"></a>
   <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/github/license/asmpro7/provenance"></a>
   <img alt="Zotero 7 to 10" src="https://img.shields.io/badge/Zotero-7%20to%2010-cc2936">
+ <a href="https://zoteroplugins.org/p/provenance"><img src="https://zoteroplugins.org/badge/provenance.svg" alt="Zotero Plugins grade"></a>
 </p>
 
 <p align="center">
