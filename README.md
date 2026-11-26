@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="icons/icon-96.png" alt="Provenance icon" width="96" height="96">
+  <img src="icons/icon.svg" alt="Provenance icon" width="128" height="128">
 </p>
 
 <h1 align="center">Provenance</h1>
@@ -16,7 +16,7 @@
 </p>
 
 <p align="center">
-  <img src="Screenshots/3.png" alt="A Provenance report: overall similarity and summary" width="800">
+  <img src="Screenshots/4.png" alt="A Provenance report: overall similarity and summary" width="800">
 </p>
 
 ## Features
@@ -37,25 +37,39 @@
 
 ![Provenance on the Zotero Plugins page](Screenshots/1.png)
 
-**The Provenance menu** (Tools, then Provenance)
+**Right-click a paper, then Provenance.** The same five actions are also in the Tools menu.
 
 ![The Provenance menu in Zotero](Screenshots/2.png)
 
+**Progress while a check runs**, ending with the overall similarity and the report opening in your browser.
+
+![Progress dialog](Screenshots/3.png)
+
 **Report summary.** Overall similarity, sources compared, flagged sources and passages without a citation.
 
-![Report summary](Screenshots/3.png)
+![Report summary](Screenshots/4.png)
 
-**Longest matched passages**, with word counts and whether each one is cited.
+**Longest matched passages**, with word counts.
 
-![Longest matched passages](Screenshots/4.png)
+![Longest matched passages](Screenshots/5.png)
+
+**Possible paraphrases.** Sentences that share most of their wording with a source, shown side by side.
+
+![Possible paraphrases](Screenshots/6.png)
 
 **The paper, highlighted by matching source.** Each color is one of the top matching sources.
 
-![The paper highlighted by matching source](Screenshots/5.png)
+![The paper highlighted by matching source](Screenshots/7.png)
 
 **Sources, ranked by how much of the paper they match**, with filter, sort, CSV and PDF export.
 
-![Ranked sources with filter, sort and export](Screenshots/6.png)
+![Ranked sources with filter, sort and export](Screenshots/8.png)
+
+**Settings.** Strict, Normal and Lenient presets, plus detection options such as phrase size, shortest matching run, exclusions and reworded-text detection.
+
+![Provenance settings](Screenshots/9.png)
+
+Demo screenshots quote short passages from open-access arXiv papers (Vaswani et al., Devlin et al., Bahdanau et al., Sutskever et al., Luong et al.) for illustration only.
 
 ## Install
 
@@ -81,7 +95,7 @@ Reports are saved as a single HTML file and open in your browser when the check 
 
 ## Settings
 
-Open **Edit, then Settings, then Provenance** (on macOS, Zotero, then Settings). You can choose the Strict, Normal or Lenient preset, or tune match length, thresholds, exclusions (quoted text, bibliography, duplicates), near-match and paraphrase detection, the reference limit and the fingerprint index that speeds up repeat checks. "Reset all to defaults" restores the defaults.
+Open **Edit, then Settings, then Provenance** (on macOS, Zotero, then Settings). You can choose the Strict, Normal or Lenient preset, or tune match length, thresholds, exclusions (quoted text, bibliography, duplicates), near-match and paraphrase detection, the reference limit and the fingerprint index that speeds up repeat checks. "Reset all to defaults" restores the defaults. See the settings screenshot above.
 
 ## Privacy
 
